@@ -48,9 +48,12 @@ name: my_app
 version: 1.0.0+1
 
 dependencies:
+  flutter:
+    sdk: flutter
   flutter_app_config: ^1.0.0
 
-# Add this configuration section
+# ⚠️ IMPORTANT: Add this configuration section at ROOT LEVEL (same level as 'dependencies')
+# Do NOT put it inside the 'dependencies:' section!
 flutter_app_config:
   app_name: "My Awesome App"
   package_id: "com.example.myapp"
@@ -60,6 +63,8 @@ flutter_app_config:
   use_flutter_logo: false  # false = custom icon (default), true = Flutter logo
   custom_icon_path: "assets/icons/app_icon.png"  # Your custom icon path
 ```
+
+**⚠️ Common Mistake:** Make sure `flutter_app_config:` is at the **root level** of your `pubspec.yaml` (same indentation as `dependencies:`), NOT inside the `dependencies:` section. If you put it inside `dependencies:`, you'll get a "Duplicate mapping key" error.
 
 ### Step 2: Apply Configuration (IMPORTANT!)
 
@@ -156,6 +161,15 @@ flutter run
 All configuration is done in `pubspec.yaml` under `flutter_app_config`:
 
 ```yaml
+name: my_app
+version: 1.0.0+1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_app_config: ^1.0.0
+
+# ⚠️ Configuration section at ROOT LEVEL (same level as 'dependencies')
 flutter_app_config:
   # Required
   app_name: "Your App Name"           # Display name shown under app icon
@@ -172,6 +186,8 @@ flutter_app_config:
   use_flutter_logo: false            # false = use custom icon (default), true = use Flutter logo
   custom_icon_path: "assets/icons/app_icon.png"  # Path to your custom icon (required if use_flutter_logo is false)
 ```
+
+**⚠️ Important:** The `flutter_app_config:` section must be at the **root level** of your `pubspec.yaml` file (same indentation as `dependencies:`), NOT inside the `dependencies:` section. Putting it inside `dependencies:` will cause a "Duplicate mapping key" YAML error.
 
 ### Configuration Examples
 
@@ -312,6 +328,22 @@ If you need to regenerate icons manually:
 **Important:** Step 3 (`dart run flutter_app_config:configure`) is required every time you change the configuration in `pubspec.yaml`. This command reads your config and updates all Android/iOS files automatically.
 
 ## Troubleshooting
+
+**"Duplicate mapping key" error:**
+```yaml
+# ❌ WRONG - Don't put flutter_app_config inside dependencies:
+dependencies:
+  flutter_app_config: ^1.0.0
+  flutter_app_config:  # ❌ This causes duplicate key error!
+    app_name: "My App"
+
+# ✅ CORRECT - Put it at root level:
+dependencies:
+  flutter_app_config: ^1.0.0
+
+flutter_app_config:  # ✅ At root level, same as 'dependencies'
+  app_name: "My App"
+```
 
 **Configuration tool not found:**
 ```bash

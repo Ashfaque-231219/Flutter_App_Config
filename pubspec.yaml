@@ -1,6 +1,6 @@
 name: flutter_app_config
 description: Configure app name, icon, version, and splash screen directly from pubspec.yaml. Save 30-60 minutes of manual setup with automatic Android/iOS configuration. Flutter logo included. One command setup.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/Ashfaque-231219/Flutter_App_Config
 
 environment:
